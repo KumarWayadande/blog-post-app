@@ -1,15 +1,16 @@
-// index.js
-// Import the Express library
+//index.js
 import express from "express";
-// Import routes
 import authRoutes from "./routes/auth.js";
 import postRoutes from "./routes/posts.js";
+import cookieParser from "cookie-parser";
 
 // Create an instance of the Express application
 const app = express();
 
 // Use the built-in JSON middleware to parse incoming requests
 app.use(express.json());
+// Use the cookieParser middleware to parse cookies from incoming requests
+app.use(cookieParser());
 
 // Routes
 app.use("/api/auth", authRoutes);
