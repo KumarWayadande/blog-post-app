@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../context/authContext";
 
 // Define a functional component called Login
 const Login = () => {
@@ -20,12 +21,15 @@ const Login = () => {
     setInputs((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  //useContext hook to get the login function from the AuthContext.  
+  const { login } = useContext(AuthContext);  
+
   // Define handleSubmit function to handle the form submission when the user clicks the submit button
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       // Post the user input to the "/auth/login" endpoint and navigate to the home page
-      await axios.post("auth/login", inputs);
+      await login(inputs); // new login function
       navigate("/");
     } catch (err) {
       // If there is an error, set the error state variable to the error message
